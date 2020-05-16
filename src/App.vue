@@ -1,6 +1,15 @@
 <template>
   <v-app>
     <v-content>
+      <v-toolbar dense color="primary">
+        <v-toolbar-title>Secure Share</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon @click="onThemeSwitcherClick">
+          <v-icon> {{ isDark ? 'brightness_4' : 'brightness_5' }}</v-icon>
+        </v-btn>
+      </v-toolbar>
       <v-container fluid>
         <v-row>
           <v-col :cols="12" :md="6" :lg="4">
@@ -14,6 +23,11 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-footer absolute color="transparent">
+        <v-col class="text-center" cols="12">
+          {{ new Date().getFullYear() }} — <strong>МАИ</strong>
+        </v-col>
+      </v-footer>
     </v-content>
   </v-app>
 </template>
@@ -30,6 +44,19 @@ export default Vue.extend({
     LogViewer,
     DownloadedFiles,
     UserFiles
+  },
+  data: function() {
+    return {
+      // @ts-ignore
+      isDark: this.$vuetify.theme.dark,
+    }
+  },
+  methods: {
+    onThemeSwitcherClick(event: any) {
+      this.isDark = !this.isDark;
+      // @ts-ignore
+      this.$vuetify.theme.dark = this.isDark;
+    }
   }
 });
 </script>
