@@ -8,7 +8,7 @@
         <v-btn fab dark bottom right absolute @click="onAddClick" color="primary">
             <v-icon>add</v-icon>
         </v-btn>
-        <v-card-text style="height: 10px; position: relative" />
+        <div style="height: 50px; position: relative" />
     </v-card>
 </template>
 
@@ -31,19 +31,14 @@ export default Vue.extend({
             this.fileItems.push({
                 Name: 'bloba',
                 Extension: 'txt',
-                Path: 'C:\\projects\\bloba.txt'
+                Path: 'C:\\projects\\bloba.txt',
+                Status: "ready"
             });
         }
     },
     data(): State {
         return {
-            fileItems: [
-                {
-                    Name: 'text',
-                    Extension: 'txt',
-                    Path: 'C:\\text.txt',
-                }
-            ]
+            fileItems: []
         }
     }
 });
