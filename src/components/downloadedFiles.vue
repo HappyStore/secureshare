@@ -4,7 +4,6 @@
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
         <file-list :value="fileItems"></file-list>
-        
     </v-card>
 </template>
 
@@ -24,8 +23,34 @@ export default Vue.extend({
     },
     data: function(): State {
         return {
-            fileItems: [],
+            fileItems: [
+                {
+                    Name: 'biba',
+                    Extension: 'boba',
+                    Path: 'C:\\docs\\biba.boba'
+                },
+                {
+                    Name: 'Heroes IV',
+                    Extension: 'exe',
+                    Path: 'C:\\games\\Heroes IV.exe'
+                },
+                {
+                    Name: 'Diplomsyka',
+                    Extension: 'ppt',
+                    Path: 'C:\\docs\\Diplomsyka.ppt'
+                },
+                 {
+                    Name: 'Diplomsyka',
+                    Extension: 'doc',
+                    Path: 'C:\\docs\\Diplomsyka.doc'
+                },
+                {
+                    Name: 'Overwatch',
+                    Extension: 'exe',
+                    Path: 'C:\\games\\Overwatch.exe'
+                },
+            ],
         }
-    }
+    },
 });
 </script>

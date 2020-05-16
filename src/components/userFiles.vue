@@ -5,9 +5,10 @@
         </v-toolbar>
         
         <file-list :value="fileItems"></file-list>
-        <v-btn fab large dark bottom right absolute @click="onAddClick" color="pink">
-        <v-icon>add</v-icon>
-      </v-btn>
+        <v-btn fab dark bottom right absolute @click="onAddClick" color="pink">
+            <v-icon>add</v-icon>
+        </v-btn>
+        <v-card-text style="height: 10px; position: relative" />
     </v-card>
 </template>
 
@@ -38,30 +39,10 @@ export default Vue.extend({
         return {
             fileItems: [
                 {
-                    Name: 'biba',
-                    Extension: 'boba',
-                    Path: 'C:\\docs\\biba.boba'
-                },
-                {
-                    Name: 'Heroes IV',
-                    Extension: 'exe',
-                    Path: 'C:\\games\\Heroes IV.exe'
-                },
-                {
-                    Name: 'Diplomsyka',
-                    Extension: 'ppt',
-                    Path: 'C:\\docs\\Diplomsyka.ppt'
-                },
-                 {
-                    Name: 'Diplomsyka',
-                    Extension: 'doc',
-                    Path: 'C:\\docs\\Diplomsyka.doc'
-                },
-                {
-                    Name: 'Overwatch',
-                    Extension: 'exe',
-                    Path: 'C:\\games\\Overwatch.exe'
-                },
+                    Name: 'text',
+                    Extension: 'txt',
+                    Path: 'C:\\text.txt',
+                }
             ]
         }
     }
