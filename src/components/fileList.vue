@@ -6,6 +6,7 @@
                     <th class="text-cetn">Name</th>
                     <th class="text-left">Path</th>
                     <th class="text-left">Link</th>
+                    <th class="text-left">Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -14,6 +15,7 @@
                     <td>{{ filteItem.Name }}</td>
                     <td>{{ filteItem.Path }}</td>
                     <td>{{ filteItem.Link }}</td>
+                    <td>{{ filteItem.Status }}</td>
                     <td class="text-center">
                         <v-btn icon @click="onGetLinkClick(filteItem)">
                             <v-icon color="grey lighten-1">link</v-icon>
