@@ -1,6 +1,5 @@
 <template>
-    <v-list max-height="500" class="overflow-y-auto" subheader>
-        <v-subheader inset></v-subheader>
+    <v-list max-height="500" class="overflow-y-auto">
         <div v-if="value.length > 0">
             <file-item v-for="(item, i) in value" :key="i" :value="item"></file-item>
         </div>

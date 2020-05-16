@@ -1,15 +1,13 @@
 <template>
     <v-card>
-        <v-toolbar extended>
+        <v-toolbar>
             <v-toolbar-title>Мои файлы</v-toolbar-title>
-            <template v-slot:extension>
-                <v-btn @click="onAddClick" color="pink" dark absolute bottom left fab>
-                <v-icon>add</v-icon>
-              </v-btn>
-            </template>
         </v-toolbar>
         
         <file-list :value="fileItems"></file-list>
+        <v-btn fab large dark bottom right absolute @click="onAddClick" color="pink">
+        <v-icon>add</v-icon>
+      </v-btn>
     </v-card>
 </template>
 
