@@ -3,4 +3,5 @@ export interface FileItemModel {
     Extension: string;
     Path?: string;
     Link?: string;
+    Status: 'loading' | 'ready'
 }
