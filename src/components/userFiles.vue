@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 
 import fileList from '@/components/fileList.vue';
 import uploadFileDlg from '@/components/uploadFileDlg.vue';
@@ -28,8 +29,11 @@ export default Vue.extend({
         uploadFileDlg
     },
     methods: {
+        ...mapActions([
+            'appendLog'
+        ]),
         onFileUpload(file: File) {
-            
+            this.appendLog(`File uploading started! filename: ${file.name}`);
         }
     },
     data(): State {

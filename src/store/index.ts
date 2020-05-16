@@ -20,6 +20,9 @@ export default new Vuex.Store<ApplicationState>({
     PUSH_LOG(state, strToAppend: string) {
       state.logs.push(strToAppend);
     },
+    CLEAR_LOGS(state) {
+      state.logs = [];
+    },
     PUSH_USER_FILE(state, fileItem: FileItemModel) {
       state.userFiles.push(fileItem);
     },
@@ -39,6 +42,9 @@ export default new Vuex.Store<ApplicationState>({
         return;
       }
       commit('PUSH_LOG', strToAppend);
+    },
+    clearLogs({ commit }) {
+      commit('CLEAR_LOGS');
     },
     addNewUserFile({ commit }, fileItem: FileItemModel) {
       const errMsg = ValidateFileItem(fileItem);

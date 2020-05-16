@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 
 import fileList from '@/components/fileList.vue';
 import loadFileDlg from '@/components/loadFileDlg.vue';
@@ -31,6 +32,9 @@ export default Vue.extend({
         }
     },
     methods: {
+        ...mapActions([
+            'appendLog'
+        ]),
         onFileLoaded(fileItem: FileItemModel) {
             console.log(fileItem.Name);
         }
