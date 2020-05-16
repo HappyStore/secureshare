@@ -12,13 +12,13 @@
       </v-toolbar>
       <v-container fluid>
         <v-row>
-          <v-col :cols="12" :md="6" :lg="4">
+          <v-col :cols="12" :md="6">
             <user-files />
           </v-col>
-          <v-col :cols="12" :md="6" :lg="4">
+          <v-col :cols="12" :md="6">
             <downloaded-files />
           </v-col>
-          <v-col :cols="12" :md="12" :lg="4">
+          <v-col :cols="12" :md="12">
             <log-viewer />
           </v-col>
         </v-row>
