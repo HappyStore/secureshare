@@ -46,6 +46,7 @@ export default Vue.extend({
         onLoadClick() {
             if (this.canLoadFile) {
                 this.$emit('fileUpload', this.selectedFile);
+                this.closeDialog();
             }
         },
         onCancelClick() {
