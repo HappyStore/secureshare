@@ -5,7 +5,7 @@
         </v-toolbar>
         
         <file-list :value="fileItems"></file-list>
-        <v-btn fab dark bottom right absolute @click="onAddClick" color="pink">
+        <v-btn fab dark bottom right absolute @click="onAddClick" color="primary">
             <v-icon>add</v-icon>
         </v-btn>
         <v-card-text style="height: 10px; position: relative" />
