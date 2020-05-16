@@ -5,10 +5,9 @@
         </v-toolbar>
         
         <file-list :value="fileItems"></file-list>
-        <v-btn fab dark bottom right absolute @click="onAddClick" color="primary">
-            <v-icon>add</v-icon>
-        </v-btn>
+        <uploadFileDlg />
         <div style="height: 50px; position: relative" />
+        <input id="file-input" type="file" name="name" style="display: none;" />
     </v-card>
 </template>
 
@@ -16,6 +15,7 @@
 import Vue from 'vue';
 
 import fileList from '@/components/fileList.vue';
+import uploadFileDlg from '@/components/uploadFileDlg.vue';
 import { FileItemModel } from '@/models/fileItem';
 
 interface State {
@@ -24,7 +24,8 @@ interface State {
 
 export default Vue.extend({
     components: {
-        fileList
+        fileList,
+        uploadFileDlg
     },
     methods: {
         onAddClick(event: any) {
