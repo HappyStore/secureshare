@@ -3,7 +3,9 @@
         <v-toolbar>
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
-        <file-list :value="fileItems"></file-list>
+        <file-list :value="fileItems" />
+        <load-file-dlg @fileLoaded="onFileLoaded"/>
+        <div style="height: 50px; position: relative" />
     </v-card>
 </template>
 
@@ -11,6 +13,7 @@
 import Vue from 'vue';
 
 import fileList from '@/components/fileList.vue';
+import loadFileDlg from '@/components/loadFileDlg.vue';
 import { FileItemModel } from '@/models/fileItem';
 
 interface State {
@@ -19,38 +22,18 @@ interface State {
 
 export default Vue.extend({
     components: {
-        fileList
+        fileList,
+        loadFileDlg
     },
     data: function(): State {
         return {
-            fileItems: [
-                {
-                    Name: 'biba',
-                    Extension: 'boba',
-                    Path: 'C:\\docs\\biba.boba'
-                },
-                {
-                    Name: 'Heroes IV',
-                    Extension: 'exe',
-                    Path: 'C:\\games\\Heroes IV.exe'
-                },
-                {
-                    Name: 'Diplomsyka',
-                    Extension: 'ppt',
-                    Path: 'C:\\docs\\Diplomsyka.ppt'
-                },
-                 {
-                    Name: 'Diplomsyka',
-                    Extension: 'doc',
-                    Path: 'C:\\docs\\Diplomsyka.doc'
-                },
-                {
-                    Name: 'Overwatch',
-                    Extension: 'exe',
-                    Path: 'C:\\games\\Overwatch.exe'
-                },
-            ],
+            fileItems: [],
         }
     },
+    methods: {
+        onFileLoaded(fileItem: FileItemModel) {
+            console.log(fileItem.Name);
+        }
+    }
 });
 </script>
