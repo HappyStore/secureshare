@@ -5,7 +5,7 @@
         </v-toolbar>
         
         <file-list :value="fileItems"></file-list>
-        <uploadFileDlg />
+        <uploadFileDlg @fileUpload="onFileUpload" />
         <div style="height: 50px; position: relative" />
         <input id="file-input" type="file" name="name" style="display: none;" />
     </v-card>
@@ -28,13 +28,8 @@ export default Vue.extend({
         uploadFileDlg
     },
     methods: {
-        onAddClick(event: any) {
-            this.fileItems.push({
-                Name: 'bloba',
-                Extension: 'txt',
-                Path: 'C:\\projects\\bloba.txt',
-                Status: "ready"
-            });
+        onFileUpload(file: File) {
+            
         }
     },
     data(): State {

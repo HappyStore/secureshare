@@ -4,7 +4,7 @@
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
         <file-list :value="fileItems" />
-        <load-file-dlg @fileLoaded="onFileLoaded"/>
+        <load-file-dlg @fileLoaded="onFileLoaded" />
         <div style="height: 50px; position: relative" />
     </v-card>
 </template>
