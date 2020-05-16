@@ -1,12 +1,11 @@
 <template>
-    <v-list max-height="500" class="overflow-y-auto">
+    <v-list two-line max-height="500" class="overflow-y-auto">
         <div v-if="value.length > 0">
             <file-item v-for="(item, i) in value" :key="i" :value="item"></file-item>
         </div>
         <v-list-item v-else disabled>
             <v-list-item-content >
-                <v-list-item-title class="d-flex justify-center" v-text="'Пусто!'">
-                </v-list-item-title>
+                <v-list-item-title class="d-flex justify-center" v-text="'Пусто!'" />
             </v-list-item-content>
         </v-list-item>
     </v-list>

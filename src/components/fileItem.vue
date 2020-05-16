@@ -1,7 +1,8 @@
 <template>
     <v-list-item>
         <v-list-item-content>
-          <v-list-item-title v-text="fileName"></v-list-item-title>
+          <v-list-item-title v-text="fileName" />
+          <v-list-item-subtitle v-text="value.Path" />
         </v-list-item-content>
     </v-list-item>
 </template>

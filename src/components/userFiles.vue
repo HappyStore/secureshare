@@ -29,7 +29,8 @@ export default Vue.extend({
         onAddClick(event: any) {
             this.fileItems.push({
                 Name: 'bloba',
-                Extension: 'txt'
+                Extension: 'txt',
+                Path: 'C:\\projects\\bloba.txt'
             });
         }
     },
@@ -38,23 +39,28 @@ export default Vue.extend({
             fileItems: [
                 {
                     Name: 'biba',
-                    Extension: 'boba'
+                    Extension: 'boba',
+                    Path: 'C:\\docs\\biba.boba'
                 },
                 {
                     Name: 'Heroes IV',
-                    Extension: 'exe'
+                    Extension: 'exe',
+                    Path: 'C:\\games\\Heroes IV.exe'
                 },
                 {
                     Name: 'Diplomsyka',
-                    Extension: 'ppt'
+                    Extension: 'ppt',
+                    Path: 'C:\\docs\\Diplomsyka.ppt'
                 },
                  {
                     Name: 'Diplomsyka',
-                    Extension: 'doc'
+                    Extension: 'doc',
+                    Path: 'C:\\docs\\Diplomsyka.doc'
                 },
                 {
                     Name: 'Overwatch',
-                    Extension: 'exe'
+                    Extension: 'exe',
+                    Path: 'C:\\games\\Overwatch.exe'
                 },
             ]
         }
