@@ -20,7 +20,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn text @click="onLoadClick" :disabled="!formValid">
-                    Загрузить
+                    Скачать
                 </v-btn>
                 <v-btn text @click="onCancelClick">
                     Отмена
