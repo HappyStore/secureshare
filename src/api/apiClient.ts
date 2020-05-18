@@ -7,7 +7,7 @@ import type { DownloadRequest, DownloadResponse,
 // API_URL приходит из .env файла
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
-export const ApiClient = {
+export const apiClient = {
     download(payload: DownloadRequest): Promise<DownloadResponse> {
         return axios.post<DownloadResponse>('/download', payload)
             .then(res => res.data);
