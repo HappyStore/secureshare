@@ -7,7 +7,7 @@
         </template>
         <v-card @dragover.prevent @drop.prevent @drop="onFileDrop">
             <v-toolbar>
-                <v-toolbar-title>Загрузить файл по ссылке</v-toolbar-title>
+                <v-toolbar-title>Скачать файл</v-toolbar-title>
             </v-toolbar>
 
             <v-form class="ma-5" v-model="formValid">
