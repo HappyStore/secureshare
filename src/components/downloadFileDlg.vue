@@ -5,18 +5,21 @@
                 <v-icon>get_app</v-icon>
             </v-btn>
         </template>
-        <v-card>
+        <v-card @dragover.prevent @drop.prevent @drop="onFileDrop">
             <v-toolbar>
                 <v-toolbar-title>Загрузить файл по ссылке</v-toolbar-title>
             </v-toolbar>
 
-            <v-form class="ma-5" v-model="linkValid">
-                <v-text-field v-model="link" required :rules="validationRules" label="Ссылка на файл"></v-text-field>
+            <v-form class="ma-5" v-model="formValid">
+                <v-text-field v-model="host" required :rules="validationRules" label="Хост" />
+                <v-text-field v-model="port" required label="Порт" />
+                <v-text-field v-model="savePath" required :rules="validationRules" label="Путь" />
+                <v-text-field v-model="uuid" required :rules="validationRules" label="UUID" />
             </v-form>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn text @click="onLoadClick" :disabled="!linkValid">
+                <v-btn text @click="onLoadClick" :disabled="!formValid">
                     Загрузить
                 </v-btn>
                 <v-btn text @click="onCancelClick">
@@ -30,11 +33,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import { FileItemModel } from '@/models/fileItem';
+import { readDownloadConfigFile } from '@/logic/downloadConfigFileParser';
 
 interface State {
     dialogVisible: boolean;
-    link: string;
-    linkValid: boolean;
+    formValid: boolean;
+    host: string;
+    port: number;
+    savePath: string;
+    uuid: string;
     validationRules: Function[];
 }
 
@@ -44,16 +51,19 @@ export default Vue.extend({
     data: function(): State {
         return {
             dialogVisible: false,
-            link: '',
-            linkValid: false,
+            formValid: false,
+            host: '',
+            port: 8080,
+            savePath: '',
+            uuid: '',
             validationRules: [
-                (link: string) => !!link && link.length > 0 || 'Пустая ссылка'
+                (val: string) => !!val && val.length > 0 || 'Введите значение'
             ]
         }
     },
     methods: {
         async onLoadClick(): Promise<void> {
-            if (this.linkValid) {
+            if (this.formValid) {
                 this.closeDialog();
                 // Вот тут надо начать грузить файл
                 await imitateWork(5000);
@@ -72,7 +82,32 @@ export default Vue.extend({
         },
         closeDialog() {
             this.dialogVisible = false;
-            this.link = '';
+            this.savePath = '';
+            this.uuid = '';
+        },
+        async onFileDrop(event: DragEvent) {
+            event.preventDefault();
+            if (!event.dataTransfer) {
+                return;
+            }
+
+            let droppedFiles = event.dataTransfer.files;
+
+            if(!droppedFiles || droppedFiles.length < 1) {
+                return;
+            };
+
+            const file = droppedFiles[0];
+
+            try {
+                const parsedConfiguration = await readDownloadConfigFile(file);
+                this.host = parsedConfiguration.host;
+                this.port = parsedConfiguration.port;
+                this.uuid = parsedConfiguration.uuid;
+                this.savePath = parsedConfiguration.savePath;
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 });

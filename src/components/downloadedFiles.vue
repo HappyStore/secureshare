@@ -4,7 +4,7 @@
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
         <file-list :value="fileItems" />
-        <load-file-dlg @fileLoaded="onFileLoaded" />
+        <download-file-dlg @fileLoaded="onFileLoaded" />
         <div style="height: 50px; position: relative" />
     </v-card>
 </template>
@@ -14,7 +14,7 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 
 import fileList from '@/components/fileList.vue';
-import loadFileDlg from '@/components/loadFileDlg.vue';
+import downloadFileDlg from '@/components/downloadFileDlg.vue';
 import { FileItemModel } from '@/models/fileItem';
 
 interface State {
@@ -24,7 +24,7 @@ interface State {
 export default Vue.extend({
     components: {
         fileList,
-        loadFileDlg
+        downloadFileDlg
     },
     data: function(): State {
         return {
