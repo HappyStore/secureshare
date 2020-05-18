@@ -23,7 +23,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-footer padless>
+      <v-footer fixed padless>
         <v-col class="text-center" cols="12">
           {{ new Date().getFullYear() }} — <strong>МАИ</strong>
         </v-col>
