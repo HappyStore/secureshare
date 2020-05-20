@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { DownloadRequest, DownloadResponse, 
+import { DownloadRequest, DownloadResponse, 
     ShareRequest, ShareResponse, 
     UploadRequest, UploadResponse } from './models';
 

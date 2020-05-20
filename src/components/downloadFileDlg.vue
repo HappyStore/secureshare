@@ -5,7 +5,7 @@
                 <v-icon>get_app</v-icon>
             </v-btn>
         </template>
-        <v-card @dragover.prevent @drop.prevent @drop="onFileDrop">
+        <v-card @dragover.prevent @drop="onFileDrop">
             <v-toolbar>
                 <v-toolbar-title>Скачать файл</v-toolbar-title>
             </v-toolbar>
@@ -33,15 +33,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import { FileItemModel } from '@/models/fileItem';
-import { readDownloadConfigFile } from '@/logic/downloadConfigFileParser';
+
+import { DownloadRequest } from '@/api';
 
 interface State {
     dialogVisible: boolean;
     formValid: boolean;
-    host: string;
-    port: number;
-    savePath: string;
-    uuid: string;
     validationRules: Function[];
 }
 
@@ -52,29 +49,22 @@ export default Vue.extend({
         return {
             dialogVisible: false,
             formValid: false,
-            host: '',
-            port: 8080,
-            savePath: '',
-            uuid: '',
             validationRules: [
                 (val: string) => !!val && val.length > 0 || 'Введите значение'
             ]
         }
     },
+    props: {
+        host: { type: String, required: true },
+        uuid: { type: String, required: true },
+        port: { type: String, required: true },
+        savePath: { type: String, required: true }
+    },
     methods: {
         async onLoadClick(): Promise<void> {
             if (this.formValid) {
                 this.closeDialog();
-                // Вот тут надо начать грузить файл
-                await imitateWork(5000);
-                const fakeFile: FileItemModel = {
-                    Name: 'fileName',
-                    Extension: 'doc',
-                    Link: 'fileLink',
-                    Path: 'C:/downloads',
-                    Status: "loading"
-                }
-                this.$emit('fileLoaded', fakeFile);
+                this.$emit('fileLoad');
             }
         },
         onCancelClick() {
@@ -82,11 +72,11 @@ export default Vue.extend({
         },
         closeDialog() {
             this.dialogVisible = false;
-            this.savePath = '';
-            this.uuid = '';
+            this.$emit('dialogClose');
         },
         async onFileDrop(event: DragEvent) {
             event.preventDefault();
+            
             if (!event.dataTransfer) {
                 return;
             }
@@ -99,15 +89,7 @@ export default Vue.extend({
 
             const file = droppedFiles[0];
 
-            try {
-                const parsedConfiguration = await readDownloadConfigFile(file);
-                this.host = parsedConfiguration.host;
-                this.port = parsedConfiguration.port;
-                this.uuid = parsedConfiguration.uuid;
-                this.savePath = parsedConfiguration.savePath;
-            } catch (err) {
-                console.log(err);
-            }
+            this.$emit('fileInput', file);
         }
     }
 });

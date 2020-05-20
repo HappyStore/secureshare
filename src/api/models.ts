@@ -27,7 +27,7 @@ interface UploadResponse{
     uuid: string;
 }
 
-export type {
+export {
     DownloadRequest, DownloadResponse,
     ShareRequest, ShareResponse,
     UploadRequest, UploadResponse
