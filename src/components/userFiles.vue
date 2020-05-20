@@ -14,6 +14,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { apiClient } from '@/api';
 
 import fileList from '@/components/fileList.vue';
 import uploadFileDlg from '@/components/uploadFileDlg.vue';
@@ -33,7 +34,11 @@ export default Vue.extend({
             'appendLog'
         ]),
         onFileUpload(file: File) {
-            this.appendLog(`File uploading started! filename: ${file.name}`);
+            const formData = new FormData();
+            formData.append('file', file);
+            // TODO: UPLOAD FILE
+            this.appendLog(`UPLOADING FILE: ${file.name}`);
+            
         }
     },
     data(): State {
