@@ -11,7 +11,7 @@
             </v-toolbar>
 
             <v-form class="ma-5">
-                <v-file-input v-model="selectedFile" label="Файл" show-size/>
+                <v-text-field v-model="selectedFile" label="Путь к файлу" />
             </v-form> 
 
             <v-card-actions>
@@ -32,14 +32,14 @@ import Vue from 'vue';
 
 interface State {
     dialogVisible: boolean;
-    selectedFile: File | null;
+    selectedFile: string;
 }
 
 export default Vue.extend({
     data: function(): State {
         return {
             dialogVisible: false,
-            selectedFile: null
+            selectedFile: ''
         }
     },
     methods: {

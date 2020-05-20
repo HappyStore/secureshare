@@ -6,8 +6,6 @@
         
         <file-list :value="fileItems"></file-list>
         <uploadFileDlg @fileUpload="onFileUpload" />
-        <div style="height: 50px; position: relative" />
-        <input id="file-input" type="file" name="name" style="display: none;" />
     </v-card>
 </template>
 
@@ -33,12 +31,11 @@ export default Vue.extend({
         ...mapActions([
             'appendLog'
         ]),
-        onFileUpload(file: File) {
-            const formData = new FormData();
-            formData.append('file', file);
-            // TODO: UPLOAD FILE
-            this.appendLog(`UPLOADING FILE: ${file.name}`);
-            
+        onFileUpload(filePath: string) {
+            this.appendLog(`UPLOADING FILE: ${filePath}`);
+            apiClient.upload({
+                filePath: filePath
+            });
         }
     },
     data(): State {
