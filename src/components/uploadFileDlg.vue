@@ -54,7 +54,7 @@ export default Vue.extend({
         },
         closeDialog() {
             this.dialogVisible = false;
-            this.selectedFile = null;
+            this.selectedFile = '';
         }
     },
     computed: {
