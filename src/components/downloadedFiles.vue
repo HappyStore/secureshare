@@ -19,7 +19,7 @@ import { mapActions } from 'vuex';
 
 import fileList from '@/components/fileList.vue';
 import downloadFileDlg from '@/components/downloadFileDlg.vue';
-import { apiClient } from '@/api';
+import { apiClient, DownloadRequest } from '@/api';
 import { FileItemModel } from '@/models/fileItem';
 import { readDownloadConfigFile } from '@/logic/downloadConfigFileParser';
 
@@ -49,15 +49,15 @@ export default Vue.extend({
         ...mapActions([
             'appendLog'
         ]),
-        async onFileLoad() {
-            this.appendLog(`DOWNLOADING FILE FROM port: ${this.host}; host: ${this.host}; uuid: ${this.uuid};`);
+        async onFileLoad(downloadRq: DownloadRequest) {
+            this.appendLog(`Скачивание файла: ${downloadRq.host}; host: ${downloadRq.port}; uuid: ${downloadRq.uuid};`);
             const status = await apiClient.download({
-                host: this.host,
-                port: this.port,
-                savePath: this.savePath,
-                uuid: this.uuid
+                host: downloadRq.host,
+                port: downloadRq.port,
+                savePath: downloadRq.savePath,
+                uuid: downloadRq.uuid
             });
-            this.appendLog(`DOWNLOAD COMPLETE WITH STATUS: ${status}`);
+            this.appendLog(`Скачивание файла завершилось со статусом: ${status}`);
         },
         onDialogClose() {
             this.host = '';

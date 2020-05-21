@@ -31,11 +31,12 @@ export default Vue.extend({
         ...mapActions([
             'appendLog'
         ]),
-        onFileUpload(filePath: string) {
-            this.appendLog(`UPLOADING FILE: ${filePath}`);
-            apiClient.upload({
+        async onFileUpload(filePath: string) {
+            this.appendLog(`Загружаем файл: ${filePath}`);
+            const response = await apiClient.upload({
                 filePath: filePath
             });
+            this.appendLog(`Файл был загружен с uuid: ${response.uuid}`);
         }
     },
     data(): State {
