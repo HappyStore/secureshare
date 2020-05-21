@@ -63,8 +63,14 @@ export default Vue.extend({
     methods: {
         async onLoadClick(): Promise<void> {
             if (this.formValid) {
+                const rq:  DownloadRequest = {
+                    host: this.host,
+                    port: Number(this.port),
+                    savePath: this.savePath,
+                    uuid: this.uuid
+                };
+                this.$emit('fileLoad', rq);
                 this.closeDialog();
-                this.$emit('fileLoad');
             }
         },
         onCancelClick() {
