@@ -3,18 +3,16 @@
             <template v-slot:default>
             <thead>
                 <tr>
-                    <th class="text-cetn">Name</th>
                     <th class="text-left">Path</th>
-                    <th class="text-left">Link</th>
+                    <th class="text-left">Uuid</th>
                     <th class="text-left">Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(filteItem, i) in value" :key="i">
-                    <td>{{ filteItem.Name }}</td>
                     <td>{{ filteItem.Path }}</td>
-                    <td>{{ filteItem.Link }}</td>
+                    <td>{{ filteItem.Uuid }}</td>
                     <td>{{ filteItem.Status }}</td>
                     <td class="text-center">
                         <v-btn icon @click="onGetLinkClick(filteItem)">

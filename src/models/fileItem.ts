@@ -1,18 +1,16 @@
 export interface FileItemModel {
-    Name: string;
-    Extension: string;
     Path?: string;
-    Link?: string;
+    Uuid: string;
     Status: 'loading' | 'ready';
 }
 
 export function ValidateFileItem(fileItem: FileItemModel): string | null {
-    if (!fileItem.Name || fileItem.Name.length === 0) {
-        return 'Invalid file name';
-    }
-    if (!fileItem.Extension || fileItem.Extension.length === 0) {
-        return 'Invalid file extension';
-    }
+    // if (!fileItem.Name || fileItem.Name.length === 0) {
+    //     return 'Invalid file name';
+    // }
+    // if (!fileItem.Extension || fileItem.Extension.length === 0) {
+    //     return 'Invalid file extension';
+    // }
 
     return null;
 }
