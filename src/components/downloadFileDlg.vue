@@ -40,6 +40,10 @@ interface State {
     dialogVisible: boolean;
     formValid: boolean;
     validationRules: Function[];
+    host: string;
+    port: number;
+    savePath: string;
+    uuid: string;
 }
 
 const imitateWork = (t: number) => new Promise(resolve => setTimeout(resolve, t));
@@ -51,14 +55,12 @@ export default Vue.extend({
             formValid: false,
             validationRules: [
                 (val: string) => !!val && val.length > 0 || 'Введите значение'
-            ]
+            ],
+            host: '',
+            port: 8080,
+            savePath: '',
+            uuid: ''
         }
-    },
-    props: {
-        host: { type: String, required: true },
-        uuid: { type: String, required: true },
-        port: { type: String, required: true },
-        savePath: { type: String, required: true }
     },
     methods: {
         async onLoadClick(): Promise<void> {

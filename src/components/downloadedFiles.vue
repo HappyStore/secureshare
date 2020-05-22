@@ -3,7 +3,7 @@
         <v-toolbar>
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
-        <file-list :value="fileItems" />
+        <file-list :value="downloadFiles" />
         <download-file-dlg 
             :uuid="uuid" :port="port" :host="host" :savePath="savePath"
             @fileLoad="onFileLoad" @dialogClose="onDialogClose" @fileInput="onFileInput"
@@ -14,8 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from 'vuex';
-
+import { mapActions, mapState } from 'vuex';
 
 import fileList from '@/components/fileList.vue';
 import downloadFileDlg from '@/components/downloadFileDlg.vue';
@@ -24,7 +23,6 @@ import { FileItemModel } from '@/models/fileItem';
 import { readDownloadConfigFile } from '@/logic/downloadConfigFileParser';
 
 interface State {
-    fileItems: FileItemModel[];
     host: string;
     port: number;
     savePath: string;
@@ -38,16 +36,19 @@ export default Vue.extend({
     },
     data: function(): State {
         return {
-            fileItems: [],
             host: '',
             port: 8080,
             savePath: '',
             uuid: ''
         }
     },
+    computed: {
+        ...mapState(['downloadFiles'])
+    },
     methods: {
         ...mapActions([
-            'appendLog'
+            'appendLog',
+            'addDownloadFile'
         ]),
         async onFileLoad(downloadRq: DownloadRequest) {
             this.appendLog(`Скачивание файла: ${downloadRq.host}; host: ${downloadRq.port}; uuid: ${downloadRq.uuid};`);
@@ -57,6 +58,12 @@ export default Vue.extend({
                 savePath: downloadRq.savePath,
                 uuid: downloadRq.uuid
             });
+            const downloadedFile: FileItemModel = {
+                Uuid: downloadRq.uuid,
+                Path: downloadRq.savePath,
+                Status: 'ready'
+            }
+            this.addDownloadFile(downloadedFile);
             this.appendLog(`Скачивание файла завершилось со статусом: ${status}`);
         },
         onDialogClose() {
