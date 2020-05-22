@@ -4,8 +4,8 @@
             <v-toolbar-title>Мои файлы</v-toolbar-title>
         </v-toolbar>
         
-        <file-list :value="userFiles"></file-list>
-        <uploadFileDlg @fileUpload="onFileUpload" />
+        <file-list :value="userFiles" @getFileLink="onGetLink" ></file-list>
+        <uploadFileDlg @fileUpload="onFileUpload"/>
     </v-card>
 </template>
 
@@ -47,6 +47,16 @@ export default Vue.extend({
             }
             this.addNewUserFile(uploadedFile);
             this.appendLog(`Файл был загружен с uuid: ${res.uuid}`);
+        },
+        async onGetLink(fileItem: FileItemModel) {
+            try {
+                const res = await apiClient.share({
+                    uuid: fileItem.Uuid
+                });
+                this.appendLog(`SHARE FILE: port: ${res.port}; host: ${res.host}; uuid: ${res.uuid}`);
+            } catch(err) {
+                this.appendLog(`SHARE FILE ERROR: ${err}`);
+            }
         }
     },
 });
