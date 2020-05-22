@@ -36,17 +36,21 @@ export default Vue.extend({
             'addNewUserFile'
         ]),
         async onFileUpload(filePath: string) {
-            this.appendLog(`Загружаем файл: ${filePath}`);
-            const res = await apiClient.upload({
-                filePath: filePath
-            });
-            const uploadedFile: FileItemModel = {
-                Uuid: res.uuid,
-                Path: filePath,
-                Status: 'ready'
+            try {
+                this.appendLog(`Загружаем файл: ${filePath}`);
+                const res = await apiClient.upload({
+                    filePath: filePath
+                });
+                const uploadedFile: FileItemModel = {
+                    Uuid: res.uuid,
+                    Path: filePath,
+                    Status: 'ready'
+                }
+                this.addNewUserFile(uploadedFile);
+                this.appendLog(`Файл был загружен с uuid: ${res.uuid}`);
+            } catch (err) {
+                this.appendLog(`ОШИБКА ПРИ ЗАГРУЗКЕ ФАЙЛА ${err}`);
             }
-            this.addNewUserFile(uploadedFile);
-            this.appendLog(`Файл был загружен с uuid: ${res.uuid}`);
         },
         async onGetLink(fileItem: FileItemModel) {
             try {
@@ -55,7 +59,7 @@ export default Vue.extend({
                 });
                 this.appendLog(`SHARE FILE: port: ${res.port}; host: ${res.host}; uuid: ${res.uuid}`);
             } catch(err) {
-                this.appendLog(`SHARE FILE ERROR: ${err}`);
+                this.appendLog(`ОШИБКА: ${err}`);
             }
         }
     },

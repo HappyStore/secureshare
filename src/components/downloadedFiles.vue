@@ -3,7 +3,10 @@
         <v-toolbar>
             <v-toolbar-title>Скачанные файлы</v-toolbar-title>
         </v-toolbar>
-        <file-list :value="downloadFiles" />
+        <file-list 
+            :value="downloadFiles"
+            @getFileLink="onGetLink" 
+        />
         <download-file-dlg 
             :uuid="uuid" :port="port" :host="host" :savePath="savePath"
             @fileLoad="onFileLoad" @dialogClose="onDialogClose" @fileInput="onFileInput"
@@ -51,20 +54,24 @@ export default Vue.extend({
             'addDownloadFile'
         ]),
         async onFileLoad(downloadRq: DownloadRequest) {
-            this.appendLog(`Скачивание файла: ${downloadRq.host}; host: ${downloadRq.port}; uuid: ${downloadRq.uuid};`);
-            const status = await apiClient.download({
-                host: downloadRq.host,
-                port: downloadRq.port,
-                savePath: downloadRq.savePath,
-                uuid: downloadRq.uuid
-            });
-            const downloadedFile: FileItemModel = {
-                Uuid: downloadRq.uuid,
-                Path: downloadRq.savePath,
-                Status: 'ready'
+            try {
+                this.appendLog(`Скачивание файла: ${downloadRq.host}; host: ${downloadRq.port}; uuid: ${downloadRq.uuid};`);
+                const status = await apiClient.download({
+                    host: downloadRq.host,
+                    port: downloadRq.port,
+                    savePath: downloadRq.savePath,
+                    uuid: downloadRq.uuid
+                });
+                const downloadedFile: FileItemModel = {
+                    Uuid: downloadRq.uuid,
+                    Path: downloadRq.savePath,
+                    Status: 'ready'
+                }
+                this.addDownloadFile(downloadedFile);
+                this.appendLog(`Скачивание файла завершилось со статусом: ${status}`);
+            } catch(err) {
+                this.appendLog(`ОШИБКА ПРИ СКАЧИВАНИИ ФАЙЛА: ${err}`)
             }
-            this.addDownloadFile(downloadedFile);
-            this.appendLog(`Скачивание файла завершилось со статусом: ${status}`);
         },
         onDialogClose() {
             this.host = '';
@@ -80,8 +87,17 @@ export default Vue.extend({
                     this.savePath = c.savePath;
                     this.uuid = c.uuid;
                 })
-                .catch(err => console.log(err));
-            
+                .catch(err => this.appendLog(`CONFIG FILE INPUT ERROR: ${err}`));
+        },
+        async onGetLink(fileItem: FileItemModel) {
+            try {
+                const res = await apiClient.share({
+                    uuid: fileItem.Uuid
+                });
+                this.appendLog(`SHARE FILE: port: ${res.port}; host: ${res.host}; uuid: ${res.uuid}`);
+            } catch(err) {
+                this.appendLog(`ОШИБКА: ${err}`);
+            }
         }
     }
 });
